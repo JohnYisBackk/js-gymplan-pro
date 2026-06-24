@@ -2,7 +2,7 @@
 
 ### Live Demo
 
-🔗 
+🔗 https://johnyisbackk.github.io/js-gymplan-pro/
 
 ---
 

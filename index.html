@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <title>GymPlan PRO</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <main class="gym-app">
+      <aside class="workout-sidebar">
+        <div class="sidebar-header">
+          <div class="brand">
+            <div class="brand-icon">GP</div>
+
+            <div class="brand-text">
+              <h1>My Split</h1>
+              <p>GymPlan PRO</p>
+            </div>
+          </div>
+        </div>
+
+        <button id="themeToggleBtn" class="theme-toggle-btn">
+          <i class="fa-solid fa-moon"></i>
+          Dark Mode
+        </button>
+
+        <button class="workout-btn" id="workoutBtn">
+          <span class="workout-btn-dot"></span>
+          Start Workout
+        </button>
+
+        <form id="workoutForm" class="workout-form">
+          <label class="workoutNameInput">New workout</label>
+          <div class="form-row">
+            <input
+              type="text"
+              id="workoutNameInput"
+              placeholder="Push, Pull, Legs..."
+            />
+            <button type="submit">+</button>
+          </div>
+        </form>
+
+        <section class="workout-list-wrap">
+          <div class="section-heading">
+            <span>Workouts</span>
+            <strong id="workoutCount">0/6</strong>
+          </div>
+
+          <div id="workoutsList" class="workouts-list">
+            <!-- workouts render in JS -->
+          </div>
+        </section>
+      </aside>
+
+      <section class="workout-detail">
+        <header class="detail-header">
+          <div>
+            <p class="eyebrow">Workout builder</p>
+            <h2 id="activeWorkoutTitle">Select workout</h2>
+            <span id="activeWorkoutInfo">
+              Create or choose a workout plan.
+            </span>
+          </div>
+
+          <div class="detail-actions">
+            <button id="exportDataBtn" class="secondary-btn">
+              <i class="fa-solid fa-download"></i>
+            </button>
+
+            <button id="importDataBtn" class="secondary-btn">
+              <i class="fa-solid fa-upload"></i>
+            </button>
+
+            <button id="deleteWorkoutBtn" class="danger-btn">
+              Delete Workout
+            </button>
+          </div>
+        </header>
+
+        <input type="file" id="importDataInput" accept=".json" hidden />
+
+        <section class="week-cycle-box">
+          <div>
+            <span class="cycle-label">Training Cycle</span>
+            <strong id="activeWeekLabel">Week 1</strong>
+          </div>
+
+          <select id="weekSelect">
+            <option value="1">Week 1</option>
+            <option value="2">Week 2</option>
+            <option value="3">Week 3</option>
+            <option value="4">Week 4</option>
+            <option value="5">Week 5</option>
+            <option value="6">Week 6</option>
+            <option value="7">Week 7</option>
+            <option value="8">Week 8</option>
+            <option value="9">Week 9</option>
+            <option value="10">Week 10</option>
+            <option value="11">Week 11</option>
+            <option value="12">Week 12</option>
+          </select>
+
+          <button id="completeWeekBtn" class="complete-week-btn">
+            Complete Week
+          </button>
+        </section>
+
+        <div class="workout-timer-box hidden" id="workoutTimerBox">
+          <div>
+            <span class="timer-label">Workout time</span>
+            <strong id="workoutTimer">00:00:00</strong>
+          </div>
+
+          <span class="timer-status">Active</span>
+        </div>
+
+        <div id="workoutHistoryList" class="workout-history-list"></div>
+
+        <section class="workout-hero">
+          <img id="workoutHeroImage" src="" alt="Workout image" />
+
+          <button id="changeImageBtn" class="change-image-btn">
+            <i class="fa-solid fa-camera"></i>
+            Change Image
+          </button>
+
+          <input type="file" id="imageInput" accept="image/*" hidden />
+        </section>
+
+        <section class="set-type-guide">
+          <article class="set-guide-card progress-guide">
+            <span>Progress Set</span>
+            <p>
+              Najťažšia pracovná séria. Sleduj výkon, silu a progres v čase.
+            </p>
+          </article>
+
+          <article class="set-guide-card bodybuilding-guide">
+            <span>Bodybuilding Set</span>
+            <p>
+              Kontrolovaná séria na precítenie svalu, techniku a pomalé tempo.
+            </p>
+          </article>
+
+          <article class="set-guide-card fun-guide">
+            <span>Fun Set</span>
+            <p>
+              Voľná séria na pumpu, zmenu techniky, dropset alebo vyššie
+              opakovania.
+            </p>
+          </article>
+        </section>
+
+        <div class="workout-description">
+          <label for="workoutDescriptionInput">Description</label>
+
+          <textarea
+            id="workoutDescriptionInput"
+            placeholder="Chest, Shoulders, Triceps focused workout."
+          ></textarea>
+        </div>
+
+        <section class="summary-grid">
+          <article>
+            <span id="exerciseCount">0</span>
+            <p>Exercises</p>
+          </article>
+
+          <article>
+            <span id="setCount">0</span>
+            <p>Total Sets</p>
+          </article>
+
+          <article>
+            <span id="volumeCount">0 kg</span>
+            <p>Total Volume</p>
+          </article>
+        </section>
+
+        <form id="exerciseForm" class="exercise-form">
+          <h3 class="exercise-form-title">Add exercise</h3>
+          <div class="field">
+            <label for="exerciseNameInput">Exercise</label>
+
+            <select id="exerciseNameInput">
+              <option value="">Choose exercise...</option>
+            </select>
+          </div>
+
+          <div class="field short">
+            <label for="weightInput">Kg</label>
+            <input type="number" id="weightInput" placeholder="65" min="0" />
+          </div>
+
+          <div class="field short">
+            <label for="repsInput">Reps</label>
+            <input type="number" id="repsInput" placeholder="8" min="1" />
+          </div>
+
+          <div class="field short">
+            <label for="setsAmountInput">Sets</label>
+            <input
+              type="number"
+              id="setsAmountInput"
+              placeholder="3"
+              min="1"
+              max="6"
+            />
+          </div>
+
+          <div class="field short">
+            <label for="setTypeInput">Set Type</label>
+            <select id="setTypeInput">
+              <option value="progress">Progress</option>
+              <option value="bodybuilding">Bodybuilding</option>
+              <option value="fun">Fun</option>
+            </select>
+          </div>
+
+          <button type="submit">Add</button>
+        </form>
+
+        <section id="exercisesList" class="exercises-list">
+          <!-- Exercises render in JS -->
+        </section>
+      </section>
+    </main>
+
+    <div class="finish-modal hidden" id="finishModal">
+      <div class="finish-modal-card">
+        <span class="finish-icon">✓</span>
+        <h3>All exercises finished</h3>
+        <p>Do you want to end this workout?</p>
+
+        <div class="finish-summary">
+          <div>
+            <strong id="finishDuration">00:00:00</strong>
+            <span>Duration</span>
+          </div>
+
+          <div>
+            <strong id="finishSets">0</strong>
+            <span>Sets</span>
+          </div>
+
+          <div>
+            <strong id="finishVolume">0 kg</strong>
+            <span>Volume</span>
+          </div>
+        </div>
+
+        <div class="finish-modal-actions">
+          <button id="finishNoBtn" class="finish-no-btn">No</button>
+          <button id="finishYesBtn" class="finish-yes-btn">
+            Yes, end workout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-complete-modal hidden" id="weekCompleteModal">
+      <div class="finish-modal-card">
+        <span class="finish-icon">✓</span>
+        <h3 id="weekCompleteTitle">Week finished</h3>
+        <p>Great job. This week is now completed.</p>
+
+        <button id="weekCompleteOkBtn" class="week-complete-ok-btn">OK</button>
+      </div>
+    </div>
+
+    <div class="active-workout-bar hidden" id="activeWorkoutBar">
+      <div>
+        <span>Time</span>
+        <strong id="barWorkoutTimer">00:00:00</strong>
+      </div>
+
+      <div>
+        <span>Exercises</span>
+        <strong id="barExerciseProgress">0/0</strong>
+      </div>
+
+      <button id="barEndWorkoutBtn">Stop</button>
+    </div>
+  </body>
+</html>
